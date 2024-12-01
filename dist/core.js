@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.client = exports.Origin = exports.YouTube = exports.Localize = void 0;
+exports.client = exports.lang = exports.Origin = exports.YouTube = exports.Localize = void 0;
 exports.setLanguage = setLanguage;
 exports.getHtmlRoot = getHtmlRoot;
 exports.ParseActions = ParseActions;
@@ -24,10 +24,9 @@ var models_2 = require("./models");
 Object.defineProperty(exports, "Localize", { enumerable: true, get: function () { return models_2.Localize; } });
 exports.YouTube = "YouTube";
 exports.Origin = "https://www.youtube.com";
-var lang;
 exports.client = setLanguage("zh");
 function setLanguage(key) {
-    lang = models_1.Localize[key];
+    exports.lang = models_1.Localize[key];
     return exports.client = axios_1.default.create({
         headers: {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
@@ -45,7 +44,7 @@ function setLanguage(key) {
             "Sec-Fetch-Dest": "empty",
             "Origin": exports.Origin,
             "X-Origin": exports.Origin,
-            'Accept-Language': lang.Region.AcceptLanguage
+            'Accept-Language': exports.lang.Region.AcceptLanguage
         }
     });
 }
@@ -155,16 +154,16 @@ function parseRenderer(jsonElement) {
 }
 function getRendererDataType(rendererName) {
     return ({
-        "liveChatTextMessageRenderer": lang.ChatGeneral,
-        "liveChatPaidMessageRenderer": lang.ChatSuperChat,
-        "liveChatPaidStickerRenderer": lang.ChatSuperSticker,
-        "liveChatMembershipItemRenderer": lang.ChatJoinMember,
+        "liveChatTextMessageRenderer": exports.lang.ChatGeneral,
+        "liveChatPaidMessageRenderer": exports.lang.ChatSuperChat,
+        "liveChatPaidStickerRenderer": exports.lang.ChatSuperSticker,
+        "liveChatMembershipItemRenderer": exports.lang.ChatJoinMember,
         "liveChatViewerEngagementMessageRenderer": exports.YouTube,
         "liveChatModeChangeMessageRenderer": exports.YouTube,
-        "liveChatSponsorshipsGiftPurchaseAnnouncementRenderer": lang.ChatMemberGift,
-        "liveChatSponsorshipsGiftRedemptionAnnouncementRenderer": lang.ChatReceivedMemberGift,
-        "liveChatBannerHeaderRenderer": lang.ChatPinned,
-        "liveChatBannerRedirectRenderer": lang.ChatRedirect,
+        "liveChatSponsorshipsGiftPurchaseAnnouncementRenderer": exports.lang.ChatMemberGift,
+        "liveChatSponsorshipsGiftRedemptionAnnouncementRenderer": exports.lang.ChatReceivedMemberGift,
+        "liveChatBannerHeaderRenderer": exports.lang.ChatPinned,
+        "liveChatBannerRedirectRenderer": exports.lang.ChatRedirect,
     }[rendererName]);
 }
 function getAuthorName(jsonElement) {
@@ -191,17 +190,17 @@ function setRendererData(dataSet, jsonElement, rendererName) {
     data.backgroundColor = getColorHexCode((_c = jsonElement === null || jsonElement === void 0 ? void 0 : jsonElement.backgroundColor) !== null && _c !== void 0 ? _c : jsonElement === null || jsonElement === void 0 ? void 0 : jsonElement.bodyBackgroundColor);
     data.timestampUsec = Number(jsonElement === null || jsonElement === void 0 ? void 0 : jsonElement.timestampUsec);
     if (data.timestampUsec)
-        data.timestampText = new Date(data.timestampUsec / 1000).toLocaleString(lang.Region.value);
+        data.timestampText = new Date(data.timestampUsec / 1000).toLocaleString(exports.lang.Region.value);
     // Handle special cases
     if (data.type === "YouTube")
         data.name = "[YouTube]";
     if (rendererName === "liveChatMembershipItemRenderer") {
         // Update type based on message content
-        if (data.content.includes(lang.MemberUpgrade)) {
-            data.type = lang.ChatMemberUpgrade;
+        if (data.content.includes(exports.lang.MemberUpgrade)) {
+            data.type = exports.lang.ChatMemberUpgrade;
         }
-        else if (data.content.includes(lang.MemberMilestone)) {
-            data.type = lang.ChatMemberMilestone;
+        else if (data.content.includes(exports.lang.MemberMilestone)) {
+            data.type = exports.lang.ChatMemberMilestone;
         }
     }
     else if (rendererName === "liveChatSponsorshipsGiftPurchaseAnnouncementRenderer") {

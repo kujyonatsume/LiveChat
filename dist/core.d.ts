@@ -3,6 +3,7 @@ import { Localize, RendererData } from './models';
 export { Localize } from './models';
 export declare const YouTube = "YouTube";
 export declare const Origin = "https://www.youtube.com";
+export declare var lang: typeof Localize[keyof typeof Localize];
 export declare var client: axios.AxiosInstance;
 export declare function setLanguage(key: keyof typeof Localize): axios.AxiosInstance;
 export declare function getHtmlRoot(url: string): Promise<import("node-html-parser").HTMLElement>;

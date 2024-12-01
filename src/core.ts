@@ -5,7 +5,7 @@ export { Localize } from './models';
 export const YouTube = "YouTube";
 export const Origin = "https://www.youtube.com";
 
-var lang: typeof Localize[keyof typeof Localize]
+export var lang: typeof Localize[keyof typeof Localize]
 
 export var client: axios.AxiosInstance = setLanguage("zh");
 

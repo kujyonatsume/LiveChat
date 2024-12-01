@@ -1,2 +1,2 @@
 import livechat from "../dist"
-livechat.LiveChatMessage("ytvideourl")
+livechat.LiveChatMessage("ytvideourl", console.log)

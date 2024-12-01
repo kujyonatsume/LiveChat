@@ -1,8 +1,10 @@
-import { writeFileSync } from 'fs';
-import { client, getHtmlRoot, Origin, ParseActions } from './core';
+import { client, getHtmlRoot, Origin, ParseActions, lang } from './core';
+import { RendererData } from './models';
 import { setTimeout } from 'timers/promises';
 
-export async function LiveChatMessage(videoIDorUrl: string) {
+
+export async function LiveChatMessage(videoIDorUrl: string, handler: (message: RendererData) => any) {
+
 
     var videoID = getYouTubeVideoID(videoIDorUrl)
 
@@ -16,10 +18,18 @@ export async function LiveChatMessage(videoIDorUrl: string) {
 
     while (true) {
         const data = (await client.post(`https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key=${key}`,
-            { context: { client: { clientName: clientName, clientVersion: clientVersion } }, continuation: continuation })).data
-        if (data?.continuationContents?.messageRenderer) return
+            {
+                context: {
+                    client: {
+                        clientName,
+                        clientVersion,
+                        gl: lang.Region.gl,
+                        hl: lang.Region.hl
+                    }
+                }, continuation
+            })).data
 
-        writeFileSync('data.json', JSON.stringify(ParseActions(data), null, 4), 'utf-8')
+        for (const element of ParseActions(data)) handler(element)
 
         await setTimeout(3000)
     }

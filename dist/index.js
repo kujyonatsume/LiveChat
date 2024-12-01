@@ -14,12 +14,10 @@ exports.getYouTubeVideoID = getYouTubeVideoID;
 exports.getLatestStreamingVideoID = getLatestStreamingVideoID;
 exports.getYouTubeChannelID = getYouTubeChannelID;
 exports.parseYouTubeChannelID = parseYouTubeChannelID;
-const fs_1 = require("fs");
 const core_1 = require("./core");
 const promises_1 = require("timers/promises");
-function LiveChatMessage(videoIDorUrl) {
+function LiveChatMessage(videoIDorUrl, handler) {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a;
         var videoID = getYouTubeVideoID(videoIDorUrl);
         var liveRes = (yield core_1.client.get(`https://www.youtube.com/watch?v=${videoID}`)).data;
         if (liveRes.match(/LIVE_STREAM_OFFLINE/))
@@ -29,10 +27,18 @@ function LiveChatMessage(videoIDorUrl) {
         var clientName = liveRes.match(/"clientName":"(\S*?)"/)[1];
         var clientVersion = liveRes.match(/"clientVersion":"(\S*?)"/)[1];
         while (true) {
-            const data = (yield core_1.client.post(`https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key=${key}`, { context: { client: { clientName: clientName, clientVersion: clientVersion } }, continuation: continuation })).data;
-            if ((_a = data === null || data === void 0 ? void 0 : data.continuationContents) === null || _a === void 0 ? void 0 : _a.messageRenderer)
-                return;
-            (0, fs_1.writeFileSync)('data.json', JSON.stringify((0, core_1.ParseActions)(data), null, 4), 'utf-8');
+            const data = (yield core_1.client.post(`https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key=${key}`, {
+                context: {
+                    client: {
+                        clientName,
+                        clientVersion,
+                        gl: core_1.lang.Region.gl,
+                        hl: core_1.lang.Region.hl
+                    }
+                }, continuation
+            })).data;
+            for (const element of (0, core_1.ParseActions)(data))
+                handler(element);
             yield (0, promises_1.setTimeout)(3000);
         }
     });

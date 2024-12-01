@@ -1,4 +1,5 @@
-export declare function LiveChatMessage(videoIDorUrl: string): Promise<void>;
+import { RendererData } from './models';
+export declare function LiveChatMessage(videoIDorUrl: string, handler: (message: RendererData) => any): Promise<void>;
 export declare function getYouTubeVideoID(url: string): string;
 export declare function getLatestStreamingVideoID(channelIDorUrl: string): Promise<string>;
 export declare function getYouTubeChannelID(channelUrl: string): Promise<string>;
