@@ -17,7 +17,7 @@ exports.parseYouTubeChannelID = parseYouTubeChannelID;
 const fs_1 = require("fs");
 const core_1 = require("./core");
 const promises_1 = require("timers/promises");
-LiveChatMessage("LzdSAU34L10");
+
 function LiveChatMessage(videoIDorUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;

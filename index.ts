@@ -2,8 +2,6 @@ import { writeFileSync } from 'fs';
 import { client, getHtmlRoot, Origin, ParseActions } from './core';
 import { setTimeout } from 'timers/promises';
 
-LiveChatMessage("LzdSAU34L10")
-
 export async function LiveChatMessage(videoIDorUrl: string) {
 
     var videoID = getYouTubeVideoID(videoIDorUrl)
