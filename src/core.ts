@@ -1,6 +1,6 @@
 import axios from 'axios';
 import htmlParse from 'node-html-parser';
-import { AuthorBadgesData, BadgeData, EmojiData, Localize, MessageData, RendererData, RunsData, StickerData } from './models';
+import { AuthorBadgesData, BadgeData, EmojiData, Localize, MessageData, Message, RunsData, StickerData } from './models';
 export { Localize } from './models';
 export const YouTube = "YouTube";
 export const Origin = "https://www.youtube.com";
@@ -45,7 +45,7 @@ export async function getHtmlRoot(url: string) {
 }
 
 export function ParseActions(jsonElement: any) {
-    const output: RendererData[] = [];
+    const output: Message[] = [];
 
     if (jsonElement) {
         let actions = jsonElement?.continuationContents?.liveChatContinuation?.actions;
@@ -136,7 +136,7 @@ function getVideoOffsetTimeMsec(jsonElement?: any) {
 }
 
 function parseRenderer(jsonElement?: any) {
-    const output: RendererData[] = [];
+    const output: Message[] = [];
 
     if ((
         setRendererData(output, jsonElement, "liveChatTextMessageRenderer") ||
@@ -183,9 +183,9 @@ function getAuthorPhoto(jsonElement?: any) {
     return getThumbnailUrl(jsonElement?.authorPhoto);
 }
 
-function setRendererData(dataSet: RendererData[], jsonElement: any, rendererName: string) {
+function setRendererData(dataSet: Message[], jsonElement: any, rendererName: string) {
     if (!(jsonElement = jsonElement?.[rendererName])) return false
-    let data = new RendererData()
+    let data = new Message()
     const messageData = parseMessageData(jsonElement);
     data.type = getRendererDataType(rendererName);
     data.channelID = jsonElement?.authorExternalChannelId;
@@ -305,9 +305,6 @@ function parseMessageData(jsonElement: any) {
 
     addRunData(parseRunData(jsonElement?.message));
     addRunData(parseRunData(jsonElement?.bannerMessage));
-
-
-    if (!tempText) tempText = 'No message content';
 
     output.text = tempText;
     output.bold = isBold;

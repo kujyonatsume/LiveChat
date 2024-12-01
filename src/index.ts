@@ -1,9 +1,9 @@
 import { client, getHtmlRoot, Origin, ParseActions, lang } from './core';
-import { RendererData } from './models';
+import { Message } from './models';
 import { setTimeout } from 'timers/promises';
 
 
-export async function LiveChatMessage(videoIDorUrl: string, handler: (message: RendererData) => any) {
+export async function LiveChatMessage(videoIDorUrl: string, handler: (message: Message) => any) {
 
     var videoID = getYouTubeVideoID(videoIDorUrl)
 

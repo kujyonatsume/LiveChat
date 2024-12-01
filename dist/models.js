@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Localize = exports.RunsData = exports.StickerData = exports.MessageData = exports.EmojiData = exports.BadgeData = exports.AuthorBadgesData = exports.RendererData = exports.RegionData = void 0;
+exports.Localize = exports.RunsData = exports.StickerData = exports.MessageData = exports.EmojiData = exports.BadgeData = exports.AuthorBadgesData = exports.Message = exports.RegionData = void 0;
 class RegionData {
     constructor(gl = "US", hl = "en", timeZone = "America/Los_Angeles", AcceptLanguage = "en-US;q=0.9,en-GB;q=0.8,en;q=0.7") {
         this.gl = gl;
@@ -10,9 +10,9 @@ class RegionData {
     }
 }
 exports.RegionData = RegionData;
-class RendererData {
+class Message {
 }
-exports.RendererData = RendererData;
+exports.Message = Message;
 class AuthorBadgesData {
 }
 exports.AuthorBadgesData = AuthorBadgesData;

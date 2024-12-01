@@ -177,7 +177,7 @@ function setRendererData(dataSet, jsonElement, rendererName) {
     var _a, _b, _c, _d, _e, _f;
     if (!(jsonElement = jsonElement === null || jsonElement === void 0 ? void 0 : jsonElement[rendererName]))
         return false;
-    let data = new models_1.RendererData();
+    let data = new models_1.Message();
     const messageData = parseMessageData(jsonElement);
     data.type = getRendererDataType(rendererName);
     data.channelID = jsonElement === null || jsonElement === void 0 ? void 0 : jsonElement.authorExternalChannelId;
@@ -297,8 +297,6 @@ function parseMessageData(jsonElement) {
         tempText += ` [${purchaseAmountText}] `;
     addRunData(parseRunData(jsonElement === null || jsonElement === void 0 ? void 0 : jsonElement.message));
     addRunData(parseRunData(jsonElement === null || jsonElement === void 0 ? void 0 : jsonElement.bannerMessage));
-    if (!tempText)
-        tempText = 'No message content';
     output.text = tempText;
     output.bold = isBold;
     output.textColor = tempTextColor;

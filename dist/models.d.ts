@@ -6,7 +6,7 @@ export declare class RegionData {
     readonly value: string;
     constructor(gl?: string, hl?: string, timeZone?: string, AcceptLanguage?: string);
 }
-export declare class RendererData {
+export declare class Message {
     /** 類型 */
     type?: string;
     /** 使用者頻道ID */

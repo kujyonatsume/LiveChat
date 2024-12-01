@@ -3,7 +3,7 @@ export class RegionData {
     constructor(public gl = "US", public hl = "en", public timeZone = "America/Los_Angeles", public AcceptLanguage = "en-US;q=0.9,en-GB;q=0.8,en;q=0.7") { }
 }
 
-export class RendererData {
+export class Message {
     /** 類型 */
     type?: string;
     /** 使用者頻道ID */
