@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "axios": "^1.7.8",
+    "node-html-parser": "^6.1.13"
+  },
+  "name": "livechat",
+  "version": "1.0.0",
+  "description": "Get YouTube Streaming Chat Message",
+  "license": "ISC",
+  "author": "natsume0304",
+  "main": "index.ts",
+  "devDependencies": {
+    "@types/node": "^22.10.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "YouTube",
+    "Live",
+    "Streaming",
+    "Chat"
+  ]
+}
