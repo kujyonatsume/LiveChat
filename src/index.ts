@@ -5,7 +5,6 @@ import { setTimeout } from 'timers/promises';
 
 export async function LiveChatMessage(videoIDorUrl: string, handler: (message: RendererData) => any) {
 
-
     var videoID = getYouTubeVideoID(videoIDorUrl)
 
     var liveRes = (await client.get(`https://www.youtube.com/watch?v=${videoID}`)).data
@@ -15,7 +14,7 @@ export async function LiveChatMessage(videoIDorUrl: string, handler: (message: R
     var continuation = liveRes.match(/"continuation":"(\S*?)"/)![1] as string
     var clientName = liveRes.match(/"clientName":"(\S*?)"/)![1] as string
     var clientVersion = liveRes.match(/"clientVersion":"(\S*?)"/)![1] as string
-
+    var time = 0
     while (true) {
         const data = (await client.post(`https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key=${key}`,
             {
@@ -29,7 +28,11 @@ export async function LiveChatMessage(videoIDorUrl: string, handler: (message: R
                 }, continuation
             })).data
 
-        for (const element of ParseActions(data)) handler(element)
+        for (const element of ParseActions(data)) {
+            if(element.timestampUsec < time) continue
+            time = element.timestampUsec
+            handler(element)
+        }
 
         await setTimeout(3000)
     }

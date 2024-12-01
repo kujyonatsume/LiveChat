@@ -26,6 +26,7 @@ function LiveChatMessage(videoIDorUrl, handler) {
         var continuation = liveRes.match(/"continuation":"(\S*?)"/)[1];
         var clientName = liveRes.match(/"clientName":"(\S*?)"/)[1];
         var clientVersion = liveRes.match(/"clientVersion":"(\S*?)"/)[1];
+        var time = 0;
         while (true) {
             const data = (yield core_1.client.post(`https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key=${key}`, {
                 context: {
@@ -37,8 +38,12 @@ function LiveChatMessage(videoIDorUrl, handler) {
                     }
                 }, continuation
             })).data;
-            for (const element of (0, core_1.ParseActions)(data))
+            for (const element of (0, core_1.ParseActions)(data)) {
+                if (element.timestampUsec < time)
+                    continue;
+                time = element.timestampUsec;
                 handler(element);
+            }
             yield (0, promises_1.setTimeout)(3000);
         }
     });
