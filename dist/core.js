@@ -361,6 +361,7 @@ function getThumbnailUrl(jsonElement) {
         const url = (_a = thumbnails[thumbnails.length == 1 ? 0 : 1]) === null || _a === void 0 ? void 0 : _a.url.split('=')[0];
         if (url === null || url === void 0 ? void 0 : url.startsWith('//'))
             return `https:${url}`;
+        return url;
     }
 }
 function getColorHexCode(color) {

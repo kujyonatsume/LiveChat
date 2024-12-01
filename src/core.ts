@@ -366,6 +366,7 @@ function getThumbnailUrl(jsonElement?: any) {
     if (Array.isArray(thumbnails) && thumbnails.length > 0) {
         const url = thumbnails[thumbnails.length == 1 ? 0 : 1]?.url.split('=')[0]
         if (url?.startsWith('//')) return `https:${url}`;
+        return url
     }
 }
 
