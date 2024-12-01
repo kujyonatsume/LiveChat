@@ -1,6 +1,6 @@
 {
   "name": "@natsume0304/livechat",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Get YouTube Streaming Message",
   "license": "ISC",
   "author": "natsume0304 <adam200134@gmail.com>",
@@ -8,8 +8,9 @@
     "url": "https://github.com/kujyonatsume/LiveChat"
   },
   "main": "./dist/index.js",
-  "types": "./dist/**.d.ts",
+  "types": "./dist/index.d.ts",
   "dependencies": {
+    "@natsume0304/livechat": "^1.0.6",
     "axios": "^1.7.8",
     "node-html-parser": "^6.1.13"
   },

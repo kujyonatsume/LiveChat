@@ -1,8 +1,8 @@
 ```ts
-const livechat = require("../dist")
+const livechat = require("@natsume0304/livechat")
 livechat.LiveChatMessage("ytvideourl", console.log)
 
-import livechat from "../dist"
+import livechat from "@natsume0304/livechat"
 livechat.LiveChatMessage("ytvideourl", console.log)
 /* print
 class Message {
