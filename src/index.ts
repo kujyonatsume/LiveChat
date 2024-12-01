@@ -22,8 +22,7 @@ export async function LiveChatMessage(videoIDorUrl: string, handler: (message: R
                     client: {
                         clientName,
                         clientVersion,
-                        gl: lang.Region.gl,
-                        hl: lang.Region.hl
+
                     }
                 }, continuation
             })).data

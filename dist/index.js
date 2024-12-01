@@ -33,8 +33,6 @@ function LiveChatMessage(videoIDorUrl, handler) {
                     client: {
                         clientName,
                         clientVersion,
-                        gl: core_1.lang.Region.gl,
-                        hl: core_1.lang.Region.hl
                     }
                 }, continuation
             })).data;
