@@ -1,4 +1,5 @@
 import { Message } from './models';
+export { setLanguage } from './core';
 export declare function LiveChatMessage(videoIDorUrl: string, handler: (message: Message) => any): Promise<void>;
 export declare function getYouTubeVideoID(url: string): string;
 export declare function getLatestStreamingVideoID(channelIDorUrl: string): Promise<string>;

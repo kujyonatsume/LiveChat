@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.setLanguage = void 0;
 exports.LiveChatMessage = LiveChatMessage;
 exports.getYouTubeVideoID = getYouTubeVideoID;
 exports.getLatestStreamingVideoID = getLatestStreamingVideoID;
@@ -16,6 +17,8 @@ exports.getYouTubeChannelID = getYouTubeChannelID;
 exports.parseYouTubeChannelID = parseYouTubeChannelID;
 const core_1 = require("./core");
 const promises_1 = require("timers/promises");
+var core_2 = require("./core");
+Object.defineProperty(exports, "setLanguage", { enumerable: true, get: function () { return core_2.setLanguage; } });
 function LiveChatMessage(videoIDorUrl, handler) {
     return __awaiter(this, void 0, void 0, function* () {
         var videoID = getYouTubeVideoID(videoIDorUrl);

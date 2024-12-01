@@ -1,7 +1,7 @@
-import { client, getHtmlRoot, Origin, ParseActions, lang } from './core';
+import { client, getHtmlRoot, Origin, ParseActions, lang, setLanguage } from './core';
 import { Message } from './models';
 import { setTimeout } from 'timers/promises';
-
+export { setLanguage } from './core';
 
 export async function LiveChatMessage(videoIDorUrl: string, handler: (message: Message) => any) {
 
