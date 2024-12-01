@@ -23,7 +23,7 @@ class Message {
 }
  */
 ```
-# type:
+# MessageType:
 
 ## english: 
 General | Super Chat | Super Sticker | Join Member | Member Upgrade | Member Milestone | Member Gift | Received Member Gift | Redirect | Pinned
