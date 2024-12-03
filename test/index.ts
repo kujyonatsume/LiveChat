@@ -1,12 +1,37 @@
 import { writeFileSync } from "fs"
-import { getYouTubeVideoID, setLanguage } from "../src"
 import { client } from "../src/core"
 import { Message } from "../src/models"
-//setLanguage("zh") // en | jp | kr | zh
+
 //LiveChatMessage("LzdSAU34L10")
 LiveChatMessage("Owke6Quk7T0")
 
 
+function GetHeader(ytConfigData: ConfigData) {
+    var headers = {}
+    let xGoogAuthuser = "0";
+
+    if (ytConfigData.DATASYNC_ID?.length)
+        headers["X-Goog-Pageid"] = ytConfigData.DATASYNC_ID;
+
+    if (!headers["X-Goog-Pageid"] && ytConfigData.DELEGATED_SESSION_ID?.length)
+        headers["X-Goog-Pageid"] = ytConfigData.DELEGATED_SESSION_ID;
+
+    if (ytConfigData.ID_TOKEN?.length)
+        headers["X-Youtube-Identity-Token"] = ytConfigData.ID_TOKEN;
+
+    if (ytConfigData.SESSION_INDEX?.length)
+        xGoogAuthuser = ytConfigData.SESSION_INDEX;
+
+    if (ytConfigData.InitPage?.length)
+        headers["Referrer"] = ytConfigData.InitPage;
+
+    headers["X-Goog-Authuser"] = xGoogAuthuser
+    headers["X-Goog-Visitor-Id"] = ytConfigData.INNERTUBE_CONTEXT.client.visitorData
+    headers["X-Youtube-Client-Name"] = ytConfigData.INNERTUBE_CONTEXT_CLIENT_NAME
+    headers["X-Youtube-Client-Version"] = ytConfigData.INNERTUBE_CLIENT_VERSION
+
+    return headers
+}
 
 async function LiveChatMessage(videoID: string, handler?: (message: Message) => any) {
 
@@ -53,6 +78,10 @@ async function LiveChatMessage(videoID: string, handler?: (message: Message) => 
         }
     } as ConfigData
 
+    client.post("","",{
+        headers:GetHeader()
+    })
+
     writeFileSync("data.json", JSON.stringify({ config, init }, null, 4), "utf8")
 
     // message contextMenuAccessibility 聊天室活動
@@ -90,6 +119,7 @@ async function LiveChatMessage(videoID: string, handler?: (message: Message) => 
 }
 
 interface ConfigData {
+    InitPage?: string
     INNERTUBE_API_KEY: string
     ID_TOKEN: string
     SESSION_INDEX: string
