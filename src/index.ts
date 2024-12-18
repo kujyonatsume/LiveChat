@@ -3,9 +3,9 @@ import { Message } from './models';
 import { setTimeout } from 'timers/promises';
 export { setLanguage } from './core';
 
-export async function LiveChatMessage(videoIDorUrl: string, handler: (message: Message) => any) {
+export async function LiveChatMessage(YouTubeURLorID: string, handler: (message: Message) => any) {
 
-    var videoID = getYouTubeVideoID(videoIDorUrl)
+    var videoID = await getLatestStreamingVideoID(YouTubeURLorID) || getYouTubeVideoID(YouTubeURLorID)
 
     var liveRes = (await client.get(`https://www.youtube.com/watch?v=${videoID}`)).data
     if (liveRes.match(/LIVE_STREAM_OFFLINE/)) return
@@ -29,7 +29,7 @@ export async function LiveChatMessage(videoIDorUrl: string, handler: (message: M
             })).data
 
         for (const element of ParseActions(data)) {
-            if(element.timestampUsec < time) continue
+            if (element.timestampUsec < time) continue
             time = element.timestampUsec
             handler(element)
         }
@@ -54,6 +54,7 @@ export async function getLatestStreamingVideoID(channelIDorUrl: string) {
     let videoID = "";
     const channelID = await getYouTubeChannelID(channelIDorUrl)
     const root = await getHtmlRoot(`${Origin}/channel/${channelID}/live`);
+    if (!root) return
     const linkElements = root.querySelectorAll("link");
 
     for (const element of linkElements) {
@@ -79,7 +80,8 @@ export async function getYouTubeChannelID(channelUrl: string) {
     if (channelUrl.includes(`${Origin}/channel/`))
         return channelUrl.replace(`${Origin}/channel/`, "");
 
-    if (channelUrl.includes(`${Origin}/c/`) || channelUrl.includes(`${Origin}/user/`) || channelUrl.includes("@"))
+    if (channelUrl.includes(`${Origin}/c/`) || channelUrl.includes(`${Origin}/user/`) || channelUrl.includes(`${Origin}/@`))
+        
         return await parseYouTubeChannelID(channelUrl);
 
     return channelUrl;

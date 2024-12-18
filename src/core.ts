@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import htmlParse from 'node-html-parser';
 import { AuthorBadgesData, BadgeData, EmojiData, Localize, MessageData, Message, RunsData, StickerData } from './models';
 export { Localize } from './models';
@@ -7,7 +7,7 @@ export const Origin = "https://www.youtube.com";
 
 export var lang: typeof Localize[keyof typeof Localize]
 
-export var client: axios.AxiosInstance = setLanguage("zh");
+export var client: AxiosInstance = setLanguage("zh");
 
 export function setLanguage(key: keyof typeof Localize) {
     lang = Localize[key]
@@ -34,6 +34,8 @@ export function setLanguage(key: keyof typeof Localize) {
 }
 
 export async function getHtmlRoot(url: string) {
+    console.log(url);
+    
     var res = await client.get(url)
 
     if (res.status != 200) {
