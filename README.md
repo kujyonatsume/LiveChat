@@ -1,27 +1,11 @@
 ```ts
-const livechat = require("@natsume0304/livechat")
-livechat.LiveChatMessage("ytvideourl", console.log)
+const YoutubeChat = require("@natsume0304/livechat")
+or
+import YoutubeChat from "@natsume0304/livechat"
 
-import livechat from "@natsume0304/livechat"
-livechat.LiveChatMessage("ytvideourl", console.log)
-/* print
-class Message {
-    type: string;
-    channelID: string;
-    name: string;
-    avatarUrl?: string;
-    authorBadges?: string;
-    content: string;
-    purchaseAmountText?: string;
-    foregroundColor: string;
-    backgroundColor?: string;
-    timestampUsec: number;
-    timestampText: string;
-    stickers?: StickerData[];
-    emojis?: EmojiData[];
-    badges?: BadgeData[];
-}
- */
+new YoutubeChat('zh').LiveChatMessage("https://www.youtube.com/@IruniIanvs", (videoId, msg) => {
+    // TODO: console.log(videoId, msg)
+})
 ```
 # MessageType:
 

@@ -1,7 +1,4 @@
-import { writeFileSync } from "fs";
-import YoutubeChat from "../src";
+const YoutubeChat = require("../dist")
 new YoutubeChat('zh').LiveChatMessage("https://www.youtube.com/@IruniIanvs", (id, msg) => {
-    msg.type =""
+    // TODO
 })
-
-

@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports":true,
     "strict": false,
     "rootDir": "./src",
     "outDir": "./dist",
